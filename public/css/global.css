@@ -7,7 +7,9 @@ body {
 #sidebar {
 	grid-column: 1;
 	background-color: #396fc4;
-	height: 100vh;
+	height: 100%;
+	width: 14%;
+	position: fixed;
 }
 
 .sidebar-option {

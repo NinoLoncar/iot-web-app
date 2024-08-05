@@ -4,6 +4,7 @@ const cloudClient = new CloudClient();
 
 class DeviceApiController {
 	getDevices = async function (req, res) {
+		res.type("application/json");
 		let data = await cloudClient.getDevices();
 		if (data != null) {
 			res.status(200);

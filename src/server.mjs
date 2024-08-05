@@ -15,6 +15,9 @@ server.use("/css", express.static("./public/css"));
 server.use("/js", express.static("./public/js"));
 server.use("/images", express.static("./public/images"));
 
+server.use(express.urlencoded({ extended: true }));
+server.use(express.json());
+
 server.get("/", (req, res) => {
 	res.redirect("/registeredDevices");
 });

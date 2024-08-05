@@ -3,7 +3,7 @@ const ds = require("fs/promises");
 
 class PageController {
 	getDevicesPage = async function (req, res) {
-		let html = await loadHtml("devices");
+		let html = await loadHtml("registeredDevices");
 		res.send(html);
 	};
 }
