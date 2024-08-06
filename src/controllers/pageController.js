@@ -6,6 +6,11 @@ class PageController {
 		let html = await loadHtml("registeredDevices");
 		res.send(html);
 	};
+
+	getNewDevicePage = async function (req, res) {
+		let html = await loadHtml("newDevice");
+		res.send(html);
+	};
 }
 
 function loadHtml(name) {

@@ -19,15 +19,18 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 
 server.get("/", (req, res) => {
-	res.redirect("/registeredDevices");
+	res.redirect("/registered-devices");
 });
 
 server.get(
-	"/registeredDevices",
+	"/registered-devices",
 	pageController.getDevicesPage.bind(pageController)
 );
 
+server.get("/new-device", pageController.getNewDevicePage.bind(pageController));
+
 server.get("/devices", deviceApiController.getDevices);
+server.post("/devices", deviceApiController.postDevices);
 
 server.listen(port, async () => {
 	console.log(`Server pokrenut na portu: ${port}`);
