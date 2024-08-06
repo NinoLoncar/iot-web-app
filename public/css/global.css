@@ -16,7 +16,7 @@ body {
 	width: calc(100% - 2rem);
 	height: 5rem;
 	display: grid;
-	grid-template-columns: 2fr 1fr;
+	grid-template-columns: 3fr 1fr;
 	color: white;
 	font-weight: bolder;
 	font-size: 1.2rem;

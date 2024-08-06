@@ -37,7 +37,7 @@ function addClickListenersToRows() {
 		let androidId = row.dataset["androidid"];
 		console.log(androidId);
 		row.addEventListener("click", () => {
-			window.location.href = "/registeredDevices/" + androidId;
+			window.location.href = "/registered-devices/" + androidId;
 		});
 	}
 }
