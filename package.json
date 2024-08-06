@@ -9,7 +9,9 @@
 	},
 	"author": "Nino Loncar",
 	"dependencies": {
+		"dateformat": "^5.0.3",
 		"dotenv": "^16.4.5",
-		"express": "^4.19.2"
+		"express": "^4.19.2",
+		"generate-api-key": "^1.0.2"
 	}
 }
