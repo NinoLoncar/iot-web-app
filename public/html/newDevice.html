@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <title> IoT web aplikacija</title>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="/images/icon.png">
+    <link rel="stylesheet" type="text/css" href="/css/global.css">
+    <link rel="stylesheet" type="text/css" href="/css/icons.css">
+    <link rel="stylesheet" type="text/css" href="/css/newDevice.css">
+    <script type="module" src="/js/newDevice.js"></script>
+    <script type="module" src="/js/global.js"></script>
+</head>
+
+<body>
+    <div id="sidebar">
+        <div id="registered-devices-sidebar-option" class="sidebar-option">
+            <a>Uređaji</a>
+            <i class="smartphone-icon"></i>
+        </div>
+        <div id="new-device-sidebar-option" class="sidebar-option current-page">
+            <a>Registracija uređaja</a>
+            <i class="add-icon"></i>
+        </div>
+        <div id="author">
+            Nino Lončar
+        </div>
+    </div>
+    <div id="main-content">
+        <div>
+            <form>
+                <label>API ključ za oblak:</label>
+                <input id="input-api-key" type="text">
+                <label>Android ID:</label>
+                <input id="input-android-id" type="text">
+                <label>Model uređaja:</label>
+                <input id="input-model" type="text">
+                <button id="button-add-device" type="button">Registriraj uređaj</button>
+            </form>
+            <div id="form-message">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

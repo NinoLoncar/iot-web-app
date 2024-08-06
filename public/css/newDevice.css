@@ -1,0 +1,38 @@
+#main-content {
+	text-align: center;
+}
+form {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	grid-template-rows: 1fr 1fr 1fr 1fr;
+	grid-row-gap: 3rem;
+	grid-column-gap: 2rem;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10rem;
+	font-size: 1.2rem;
+	max-width: 50%;
+}
+label {
+	text-align: right;
+}
+
+#button-add-device {
+	justify-self: center;
+	align-self: center;
+	grid-column: 1 / span 2;
+}
+
+label {
+	align-self: center;
+	font-weight: bold;
+}
+input {
+	align-self: center;
+	height: 2rem;
+}
+
+#form-message {
+	font-size: 1.2rem;
+	margin-top: 1rem;
+}
