@@ -1,5 +1,6 @@
 window.addEventListener("load", async () => {
 	let devices = await getDevices();
+	hideLoader();
 	displayDevicesTable(devices);
 });
 
@@ -20,7 +21,7 @@ function displayDevicesTable(devices) {
 	for (let device of devices) {
 		html += "<tr data-androidid='" + device.androidId + "'>";
 		html += "<td>" + device.androidId + "</td>";
-		html += "<td>" + device.model + "</td>";
+		html += "<td>" + (device.model ? device.model : "-") + "</td>";
 		html += "<td>" + device.registrationDate + "</td>";
 		html += "</tr>";
 	}
@@ -40,4 +41,9 @@ function addClickListenersToRows() {
 			window.location.href = "/registered-devices/" + androidId;
 		});
 	}
+}
+
+function hideLoader() {
+	let loader = document.getElementsByClassName("loader")[0];
+	loader.style.visibility = "hidden";
 }
