@@ -87,7 +87,6 @@
 
 /*Source: https://css-loaders.com/spinner/ */
 .loader {
-	width: 80px;
 	padding: 8px;
 	aspect-ratio: 1;
 	border-radius: 50%;
@@ -99,7 +98,6 @@
 	mask-composite: subtract;
 	animation: l3 1s infinite linear;
 	margin: auto;
-	margin-top: 40vh;
 }
 @keyframes l3 {
 	to {

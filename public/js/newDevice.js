@@ -1,7 +1,11 @@
 window.addEventListener("load", async () => {
 	let button = document.getElementById("button-add-device");
 	button.addEventListener("click", async () => {
+		hideButton();
+		showLoader();
 		await sendData();
+		hideLoader();
+		showButton();
 	});
 });
 
@@ -100,4 +104,21 @@ function clearInputs() {
 	let inputModel = document.getElementById("input-model");
 	inputAndroidId.value = "";
 	inputModel.value = "";
+}
+function hideLoader() {
+	let loader = document.getElementsByClassName("loader")[0];
+	loader.style.visibility = "hidden";
+}
+function showLoader() {
+	let loader = document.getElementsByClassName("loader")[0];
+	loader.style.visibility = "visible";
+}
+
+function hideButton() {
+	let button = document.getElementById("button-add-device");
+	button.style.visibility = "hidden";
+}
+function showButton() {
+	let button = document.getElementById("button-add-device");
+	button.style.visibility = "visible";
 }

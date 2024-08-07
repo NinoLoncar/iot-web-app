@@ -27,3 +27,7 @@ tbody tr:hover {
 	background-color: #bfd4f5;
 	cursor: pointer;
 }
+div.loader {
+	width: 80px;
+	margin-top: 40vh;
+}
