@@ -91,7 +91,7 @@ function displayAuthenticationKey(authKey) {
 		"Ovo je autentifikacijski ključ za vaš mobilni uređaj:\n" +
 		authKey +
 		"\nSpremite ga u vaš mobilni uređaj preko aplikacije." +
-		"Nakon što zatvorite ovaj dijalog, autentifikacijski ključ više nećete moći vidjeti";
+		"Nakon što zatvorite ovaj dijalog, autentifikacijski ključ više nećete moći vidjeti.";
 	alert(message);
 }
 
