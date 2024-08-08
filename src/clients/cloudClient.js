@@ -3,10 +3,9 @@ const baseUrl =
 
 class CloudClient {
 	getDevices = async function () {
-		let resposne = await fetch(baseUrl + "/devices");
-		if (resposne.status == 200) {
-			let devices = await resposne.text();
-			console.log(devices);
+		let response = await fetch(baseUrl + "/devices");
+		if (response.status == 200) {
+			let devices = await response.text();
 			return JSON.parse(devices);
 		} else {
 			return null;
@@ -22,8 +21,30 @@ class CloudClient {
 			method: "POST",
 			body: JSON.stringify(device),
 		};
-		let resposne = await fetch(baseUrl + "/devices", parameters);
-		return resposne.status;
+		let response = await fetch(baseUrl + "/devices", parameters);
+		return response.status;
+	};
+
+	getDevice = async function (androidId) {
+		let response = await fetch(baseUrl + "/device?android-id=" + androidId);
+		if (response.status == 200) {
+			let device = await response.text();
+			return JSON.parse(device);
+		}
+		return null;
+	};
+
+	getSensorData = async function (androidId) {
+		let url = baseUrl + "/sensordata";
+		if (androidId) url += "?android-id=" + androidId;
+
+		let response = await fetch(url);
+
+		if (response.status == 200) {
+			let data = await response.text();
+			return JSON.parse(data);
+		}
+		return null;
 	};
 }
 module.exports = CloudClient;
