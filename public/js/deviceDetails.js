@@ -2,14 +2,12 @@ window.addEventListener("load", async () => {
 	let button = document.getElementById("delete-button");
 
 	button.addEventListener("click", async () => {
-		hideButton();
-		showLoader();
 		if (validateData()) {
+			hideButton();
+			showLoader();
 			let status = await deleteDevice();
 			processDeleteStatus(status);
 		}
-		hideLoader();
-		showButton();
 	});
 });
 
@@ -47,10 +45,14 @@ function processDeleteStatus(status) {
 		}
 		case 401: {
 			showMessage("Pogrešan API ključ");
+			hideLoader();
+			showButton();
 			break;
 		}
 		default: {
 			showMessage("Dogodila se greška");
+			hideLoader();
+			showButton();
 		}
 	}
 }
