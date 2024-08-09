@@ -5,7 +5,16 @@ const cloudClient = new CloudClient();
 class DeviceApiController {
 	getDevices = async function (req, res) {
 		res.type("application/json");
-		let data = await cloudClient.getDevices();
+		let data;
+
+		try {
+			data = await cloudClient.getDevices();
+		} catch {
+			res.status(500);
+			res.send({ message: "Error" });
+			return;
+		}
+
 		if (data != null) {
 			res.status(200);
 			res.send(data);
@@ -35,7 +44,13 @@ class DeviceApiController {
 		device.registrationDate = dateFormat.getCurrentDateString();
 		let authKey = keyGenerator.generateAuthKey();
 		device.authenticationKey = authKey;
-		let status = await cloudClient.postDevices(device, apiKey);
+		let status;
+		try {
+			status = await cloudClient.postDevices(device, apiKey);
+		} catch {
+			status = 500;
+		}
+
 		switch (status) {
 			case 400: {
 				res.status(400);
