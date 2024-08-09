@@ -18,11 +18,18 @@ class PageController {
 	getDeviceDetailsPage = async function (req, res) {
 		let device = await cloudClient.getDevice(req.params.androidId);
 		let html;
-		console.log(device);
 		if (device == null || JSON.stringify(device) == "{}") {
 			html = await loadHtml("deviceNotRegistered");
 		} else {
 			html = await loadHtml("deviceDetails");
+			html = html.replace("#androidId#", device.androidId);
+			html = html.replace("#registrationDate#", device.registrationDate);
+			console.log(device);
+			if (device.model) {
+				html = html.replace("#model#", device.model);
+			} else {
+				html = html.replace("#model#", "-");
+			}
 		}
 		res.send(html);
 	};
