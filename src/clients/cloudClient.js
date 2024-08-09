@@ -34,6 +34,21 @@ class CloudClient {
 		return null;
 	};
 
+	deleteDevice = async function (androidId, apiKey) {
+		let parameters = {
+			headers: {
+				"Content-Type": "application/json",
+				"Api-Key": apiKey,
+			},
+			method: "DELETE",
+		};
+		let response = await fetch(
+			baseUrl + "/device?android-id=" + androidId,
+			parameters
+		);
+		return response.status;
+	};
+
 	getSensorData = async function (androidId) {
 		let url = baseUrl + "/sensordata";
 		if (androidId) url += "?android-id=" + androidId;

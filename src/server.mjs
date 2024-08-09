@@ -37,6 +37,7 @@ server.get(
 
 server.get("/devices", deviceApiController.getDevices);
 server.post("/devices", deviceApiController.postDevices);
+server.delete("/devices/:androidId", deviceApiController.deleteDevice);
 
 server.get("/sensor-data", sensorDataApiController.getSensorData);
 

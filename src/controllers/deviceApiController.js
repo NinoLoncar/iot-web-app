@@ -74,5 +74,42 @@ class DeviceApiController {
 			}
 		}
 	};
+	deleteDevice = async function (req, res) {
+		res.type("application/json");
+
+		let androidId = req.params.androidId;
+		if (!androidId) {
+			res.status(400);
+			res.send({ message: "Missing android id" });
+			return;
+		}
+
+		let apiKey = req.headers["api-key"];
+		if (!apiKey) {
+			res.status(400);
+			res.send({ message: "Missing api key" });
+			return;
+		}
+
+		let status = await cloudClient.deleteDevice(androidId, apiKey);
+
+		switch (status) {
+			case 401: {
+				res.status(401);
+				res.send({ message: "Invalid api key" });
+				break;
+			}
+			case 200: {
+				res.status(200);
+				res.send({ message: "Device was deleted" });
+				break;
+			}
+			default: {
+				res.status(500);
+				res.send({ message: "Error" });
+				break;
+			}
+		}
+	};
 }
 module.exports = DeviceApiController;
