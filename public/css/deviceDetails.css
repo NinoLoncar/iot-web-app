@@ -1,0 +1,43 @@
+#device-info {
+	font-size: 1.5rem;
+	margin-top: 5rem;
+	margin-left: 5rem;
+	display: flex;
+	align-items: center;
+}
+td {
+	padding: 1rem;
+}
+
+#delete-button {
+	padding: 1.5rem;
+}
+#delete-button:hover i {
+	color: #396fc4;
+}
+#delete-section {
+	margin-left: 5rem;
+	display: flex;
+	align-items: center;
+	height: fit-content;
+}
+#delete-section div {
+	text-align: center;
+}
+#delete-section input {
+	font-size: 1.2rem;
+	margin-left: 1rem;
+}
+#test {
+	visibility: hidden;
+}
+#message {
+	color: red;
+	width: 15rem;
+	margin-top: 0.5rem;
+	visibility: hidden;
+}
+.loader {
+	width: 55px;
+	display: none;
+}

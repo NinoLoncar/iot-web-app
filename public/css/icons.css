@@ -57,7 +57,7 @@
 	border-bottom-left-radius: 1px;
 	border-bottom-right-radius: 1px;
 	margin-top: 4px;
-	color: red;
+	color: white;
 }
 .trash-icon::after,
 .trash-icon::before {

@@ -27,8 +27,40 @@
         </div>
     </div>
     <div id="main-content">
-        Registriran
+        <div id="device-info">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><b>Android id:</b></td>
+                        <td id="android-id">#androidId#</td>
+                    </tr>
+                    <tr>
+                        <td><b>Model: </b> </td>
+                        <td>#model#</td>
+                    </tr>
+                    <tr>
+                        <td><b>Datum registracije:</b></td>
+                        <td>#registrationDate#</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="delete-section">
+                <label>API ključ za oblak:</label>
+                <input id="input-android-id" type="text">
+                <div>
+                    <div id="test">test</div>
+                    <div id="delete-loader" class="loader"></div>
+                    <button id="delete-button" type="button"><i class="trash-icon"></i></button>
+                    <div id="message">message</div>
+                </div>
+            </div>
+        </div>
+
+
+
+
     </div>
+
 </body>
 
 </html>
