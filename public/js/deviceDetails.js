@@ -1,10 +1,22 @@
+var map;
+var marker;
 window.addEventListener("load", async () => {
 	let button = document.getElementById("delete-button");
+	map = L.map("map").setView([51.505, -0.09], 15);
+	L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+		maxZoom: 19,
+		attribution:
+			'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	}).addTo(map);
 
+	showLocationLoader();
+	let data = JSON.parse(await getSensorData());
+	hideLocationLoader();
+	displayLocationData(data);
 	button.addEventListener("click", async () => {
 		if (validateData()) {
 			hideButton();
-			showLoader();
+			showDeleteLoader();
 			let status = await deleteDevice();
 			processDeleteStatus(status);
 		}
@@ -45,13 +57,13 @@ function processDeleteStatus(status) {
 		}
 		case 401: {
 			showMessage("Pogrešan API ključ");
-			hideLoader();
+			hideDeleteLoader();
 			showButton();
 			break;
 		}
 		default: {
 			showMessage("Dogodila se greška");
-			hideLoader();
+			hideDeleteLoader();
 			showButton();
 		}
 	}
@@ -65,17 +77,66 @@ function showButton() {
 	let button = document.getElementById("delete-button");
 	button.style.display = "unset";
 }
-function hideLoader() {
+function hideDeleteLoader() {
 	let loader = document.getElementById("delete-loader");
 	loader.style.display = "none";
 }
-function showLoader() {
+function showDeleteLoader() {
 	let loader = document.getElementById("delete-loader");
 	loader.style.display = "block";
+}
+function showLocationLoader() {
+	let loader = document.getElementById("location-loader");
+	loader.style.display = "block";
+}
+function hideLocationLoader() {
+	let loader = document.getElementById("location-loader");
+	loader.style.display = "none";
 }
 
 function showMessage(message) {
 	let messageDiv = document.getElementById("message");
 	messageDiv.style.visibility = "visible";
 	messageDiv.innerHTML = message;
+}
+
+async function getSensorData() {
+	let androidId = document.getElementById("android-id").innerHTML;
+	let response = await fetch("/sensor-data?android-id=" + androidId);
+	let data = await response.text();
+	return data;
+}
+function displayLocationData(sensorData) {
+	let table = document.getElementById("location-table");
+	let html = "<thead><tr>";
+	html += "<th scope='col'>Vrijeme</th>";
+	html += "<th scope='col'>Zempljopisna širina</th>";
+	html += "<th scope='col'>Zempljopisna dužina</th>";
+	html += "</tr></thead><tbody>";
+	for (let data of sensorData) {
+		html +=
+			"<tr data-lon='" + data.longitude + "' data-lat='" + data.latitude + "'>";
+		html += "<td>" + data.time + "</td>";
+		html += "<td>" + data.latitude + "</td>";
+		html += "<td>" + data.longitude + "</td>";
+		html += "</td>";
+	}
+	html += "</tbody>";
+	table.innerHTML = html;
+	addClickListenersToRows();
+}
+function addClickListenersToRows() {
+	let rows = document.querySelectorAll("#location-table tbody tr");
+	for (let row of rows) {
+		let latitude = row.dataset["lat"];
+		let longitude = row.dataset["lon"];
+		row.addEventListener("click", () => {
+			addMarker(latitude, longitude);
+		});
+	}
+}
+function addMarker(latitude, longitude) {
+	if (marker) map.removeLayer(marker);
+	map.setView([latitude, longitude], 15);
+	marker = L.marker([latitude, longitude]).addTo(map);
 }
