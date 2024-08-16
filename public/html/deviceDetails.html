@@ -10,8 +10,11 @@
     <link rel="stylesheet" type="text/css" href="/css/deviceDetails.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script type="module" src="/js/deviceDetails.js"></script>
-    <script type="module" src="/js/global.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="/js/deviceDetails.js"></script>
+    <script src="/js/global.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
@@ -69,6 +72,14 @@
             <div class="loader" id="location-loader"></div>
         </div>
 
+        <div id="filtering-segment">
+            Nakon:
+            <input type="text" id="afterDate">
+            Prije:
+            <input type="text" id="beforeDate">
+            <button id="filter-button" type="button">Filtriraj</button>
+            <button id="remove-filter-button" type="button">X</button>
+        </div>
     </div>
 
 </body>

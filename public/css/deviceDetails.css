@@ -95,3 +95,21 @@ thead th {
 	background-color: #bfd4f5;
 	cursor: pointer;
 }
+#filtering-segment {
+	text-align: right;
+	font-size: 1.2rem;
+	margin: 5rem;
+}
+#filtering-segment input {
+	margin-left: 1rem;
+	margin-right: 5rem;
+}
+#filtering-segment button {
+	margin-right: 1rem;
+}
+.flatpickr-calendar {
+	font-size: 1.2rem;
+}
+#remove-filter-button {
+	font-weight: bolder;
+}

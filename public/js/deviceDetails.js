@@ -1,5 +1,6 @@
 var map;
 var marker;
+
 window.addEventListener("load", async () => {
 	let button = document.getElementById("delete-button");
 	map = L.map("map").setView([51.505, -0.09], 15);
@@ -8,6 +9,18 @@ window.addEventListener("load", async () => {
 		attribution:
 			'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 	}).addTo(map);
+
+	flatpickr("#beforeDate", {
+		enableTime: true,
+		dateFormat: "H:i:S d.m.Y",
+		maxDate: "today",
+	});
+
+	flatpickr("#afterDate", {
+		enableTime: true,
+		dateFormat: "H:i:S d.m.Y",
+		maxDate: "today",
+	});
 
 	showLocationLoader();
 	let data = JSON.parse(await getSensorData());
@@ -109,7 +122,7 @@ async function getSensorData() {
 function displayLocationData(sensorData) {
 	let table = document.getElementById("location-table");
 	let html = "<thead><tr>";
-	html += "<th scope='col'>Vrijeme</th>";
+	html += "<th scope='col'>Datum</th>";
 	html += "<th scope='col'>Zempljopisna širina</th>";
 	html += "<th scope='col'>Zempljopisna dužina</th>";
 	html += "</tr></thead><tbody>";
