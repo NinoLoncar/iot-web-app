@@ -16,6 +16,7 @@ td {
 	color: #396fc4;
 }
 #delete-section {
+	font-size: 1.2rem;
 	margin-left: 5rem;
 	display: flex;
 	align-items: center;
@@ -75,16 +76,20 @@ thead th {
 	margin-left: 5rem;
 	margin-right: 5rem;
 }
-#location-table {
+#location-table,
+#sensor-data-table {
 	text-align: left;
 	border-collapse: collapse;
 }
 #location-table tbody td,
-#location-table thead th {
+#location-table thead th,
+#sensor-data-table tbody td,
+#sensor-data-table thead th {
 	border: 1px solid black;
 	padding: 1.2rem;
 }
-#location-table th {
+#location-table th,
+#sensor-data-table th {
 	background-color: #396fc4;
 	color: white;
 }
@@ -98,18 +103,35 @@ thead th {
 #filtering-segment {
 	text-align: right;
 	font-size: 1.2rem;
-	margin: 5rem;
+	width: fit-content;
+	margin: auto;
+	margin-bottom: 2rem;
+	margin-top: 5rem;
 }
 #filtering-segment input {
 	margin-left: 1rem;
-	margin-right: 5rem;
+	margin-right: 3rem;
 }
 #filtering-segment button {
-	margin-right: 1rem;
+	margin-left: 1rem;
 }
 .flatpickr-calendar {
 	font-size: 1.2rem;
 }
 #remove-filter-button {
 	font-weight: bolder;
+}
+#sensor-data {
+	text-align: center;
+	min-height: 10rem;
+	margin: 5rem;
+	margin-top: 2rem;
+	width: auto;
+}
+.table-container {
+	width: fit-content;
+	margin: auto;
+}
+#remove-filter-button {
+	visibility: hidden;
 }

@@ -22,10 +22,11 @@ window.addEventListener("load", async () => {
 		maxDate: "today",
 	});
 
-	showLocationLoader();
+	showDataLoaders();
 	let data = JSON.parse(await getSensorData());
-	hideLocationLoader();
+	hideDataLoaders();
 	displayLocationData(data);
+	displaySensorDataTable(data);
 	button.addEventListener("click", async () => {
 		if (validateData()) {
 			hideButton();
@@ -98,13 +99,17 @@ function showDeleteLoader() {
 	let loader = document.getElementById("delete-loader");
 	loader.style.display = "block";
 }
-function showLocationLoader() {
-	let loader = document.getElementById("location-loader");
-	loader.style.display = "block";
+function showDataLoaders() {
+	let locationLoader = document.getElementById("location-loader");
+	locationLoader.style.display = "block";
+	let sensorDataLoader = document.getElementById("sensor-data-loader");
+	sensorDataLoader.style.display = "block";
 }
-function hideLocationLoader() {
-	let loader = document.getElementById("location-loader");
-	loader.style.display = "none";
+function hideDataLoaders() {
+	let locationLoader = document.getElementById("location-loader");
+	locationLoader.style.display = "none";
+	let sensorDataLoader = document.getElementById("sensor-data-loader");
+	sensorDataLoader.style.display = "none";
 }
 
 function showMessage(message) {
@@ -132,7 +137,7 @@ function displayLocationData(sensorData) {
 		html += "<td>" + data.time + "</td>";
 		html += "<td>" + data.latitude + "</td>";
 		html += "<td>" + data.longitude + "</td>";
-		html += "</td>";
+		html += "</tr>";
 	}
 	html += "</tbody>";
 	table.innerHTML = html;
@@ -148,6 +153,29 @@ function addClickListenersToRows() {
 		});
 	}
 }
+
+function displaySensorDataTable(sensorData) {
+	let table = document.getElementById("sensor-data-table");
+	let html = "<thead><tr>";
+	html += "<th scope='col'>Datum</th>";
+	html += "<th scope='col'>Broj koraka</th>";
+	html += "<th scope='col'>X akceleracija</th>";
+	html += "<th scope='col'>Y akceleracija</th>";
+	html += "<th scope='col'>Z akceleracija</th>";
+	html += "</tr></thead><tbody>";
+	for (let data of sensorData) {
+		html += "<tr>";
+		html += "<td>" + data.time + "</td>";
+		html += "<td>" + data.stepCount + "</td>";
+		html += "<td>" + data.accelerationX + "</td>";
+		html += "<td>" + data.accelerationY + "</td>";
+		html += "<td>" + data.accelerationZ + "</td>";
+		html += "</tr>";
+	}
+	html += "</tbody>";
+	table.innerHTML = html;
+}
+
 function addMarker(latitude, longitude) {
 	if (marker) map.removeLayer(marker);
 	map.setView([latitude, longitude], 15);
