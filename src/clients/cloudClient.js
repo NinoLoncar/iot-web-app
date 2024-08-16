@@ -49,14 +49,16 @@ class CloudClient {
 		return response.status;
 	};
 
-	getSensorData = async function (androidId) {
-		let url = baseUrl + "/sensordata";
-		if (androidId) url += "?android-id=" + androidId;
-
+	getSensorData = async function (androidId, afterDate, beforeDate) {
+		let url = baseUrl + "/sensordata?";
+		if (androidId) url += "android-id=" + androidId;
+		if (afterDate) url += "&after-date=" + afterDate;
+		if (beforeDate) url += "&before-date=" + beforeDate;
 		let response = await fetch(url);
 
 		if (response.status == 200) {
 			let data = await response.text();
+			console.log(data);
 			return JSON.parse(data);
 		}
 		return null;

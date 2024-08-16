@@ -2,40 +2,68 @@ var map;
 var marker;
 
 window.addEventListener("load", async () => {
-	let button = document.getElementById("delete-button");
-	map = L.map("map").setView([51.505, -0.09], 15);
+	initializeUiElements();
+	loadData();
+	addButtonClickListeners();
+});
+
+function initializeUiElements() {
+	map = L.map("map").setView([46.308034203743695, 16.337867259412704], 15);
 	L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 		maxZoom: 19,
 		attribution:
 			'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 	}).addTo(map);
 
-	flatpickr("#beforeDate", {
+	flatpickr("#before-date", {
 		enableTime: true,
 		dateFormat: "H:i:S d.m.Y",
 		maxDate: "today",
+		enableSeconds: true,
+		time_24hr: true,
 	});
 
-	flatpickr("#afterDate", {
+	flatpickr("#after-date", {
 		enableTime: true,
 		dateFormat: "H:i:S d.m.Y",
 		maxDate: "today",
+		enableSeconds: true,
+		time_24hr: true,
 	});
+}
 
+async function loadData(afterDate, beforeDate) {
+	clearTables();
 	showDataLoaders();
-	let data = JSON.parse(await getSensorData());
+	let data = JSON.parse(await getSensorData(afterDate, beforeDate));
 	hideDataLoaders();
 	displayLocationData(data);
 	displaySensorDataTable(data);
-	button.addEventListener("click", async () => {
+}
+
+function addButtonClickListeners() {
+	let deleteButton = document.getElementById("delete-button");
+	deleteButton.addEventListener("click", async () => {
 		if (validateData()) {
-			hideButton();
+			hideDeleteButton();
 			showDeleteLoader();
 			let status = await deleteDevice();
 			processDeleteStatus(status);
 		}
 	});
-});
+
+	let filterButton = document.getElementById("filter-button");
+	filterButton.addEventListener("click", async () => {
+		showRemoveFilterButton();
+		filterData();
+	});
+
+	let removeFilterButton = document.getElementById("remove-filter-button");
+	removeFilterButton.addEventListener("click", async () => {
+		loadData();
+		hideRemoveFilterButton();
+	});
+}
 
 async function deleteDevice() {
 	let input = document.getElementById("input-android-id");
@@ -72,22 +100,28 @@ function processDeleteStatus(status) {
 		case 401: {
 			showMessage("Pogrešan API ključ");
 			hideDeleteLoader();
-			showButton();
+			showDeleteButton();
 			break;
 		}
 		default: {
 			showMessage("Dogodila se greška");
 			hideDeleteLoader();
-			showButton();
+			showDeleteButton();
 		}
 	}
 }
 
-function hideButton() {
+async function filterData() {
+	let afterDate = document.getElementById("after-date").value;
+	let beforeDate = document.getElementById("before-date").value;
+	let data = await loadData(afterDate, beforeDate);
+}
+
+function hideDeleteButton() {
 	let button = document.getElementById("delete-button");
 	button.style.display = "none";
 }
-function showButton() {
+function showDeleteButton() {
 	let button = document.getElementById("delete-button");
 	button.style.display = "unset";
 }
@@ -98,6 +132,15 @@ function hideDeleteLoader() {
 function showDeleteLoader() {
 	let loader = document.getElementById("delete-loader");
 	loader.style.display = "block";
+}
+
+function showRemoveFilterButton() {
+	let button = document.getElementById("remove-filter-button");
+	button.style.visibility = "visible";
+}
+function hideRemoveFilterButton() {
+	let button = document.getElementById("remove-filter-button");
+	button.style.visibility = "hidden";
 }
 function showDataLoaders() {
 	let locationLoader = document.getElementById("location-loader");
@@ -118,9 +161,12 @@ function showMessage(message) {
 	messageDiv.innerHTML = message;
 }
 
-async function getSensorData() {
+async function getSensorData(afterDate, beforeDate) {
 	let androidId = document.getElementById("android-id").innerHTML;
-	let response = await fetch("/sensor-data?android-id=" + androidId);
+	let url = "/sensor-data?android-id=" + androidId;
+	if (afterDate) url += "&after-date=" + afterDate;
+	if (beforeDate) url += "&before-date=" + beforeDate;
+	let response = await fetch(url);
 	let data = await response.text();
 	return data;
 }
@@ -174,6 +220,12 @@ function displaySensorDataTable(sensorData) {
 	}
 	html += "</tbody>";
 	table.innerHTML = html;
+}
+function clearTables() {
+	let sensorDataTable = document.getElementById("sensor-data-table");
+	sensorDataTable.innerHTML = "";
+	let tablocationTablele = document.getElementById("location-table");
+	tablocationTablele.innerHTML = "";
 }
 
 function addMarker(latitude, longitude) {
