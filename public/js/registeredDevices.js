@@ -45,5 +45,5 @@ function addClickListenersToRows() {
 
 function hideLoader() {
 	let loader = document.getElementsByClassName("loader")[0];
-	loader.style.visibility = "hidden";
+	loader.style.display = "none";
 }
